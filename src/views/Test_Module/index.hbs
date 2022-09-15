@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="main.css">
+        <title>Морской бой</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    </head>
+    <body>
+        <br>
+        <div class="container">
+            <div id="field"></div>
+        </div>
+        <br>
+        <div class="container">
+            <div draggable="true" deck="4" onclick="place(4)" class="accessories">0000</div>
+            <div draggable="true" deck="3" onclick="place(3)" class="accessories">000</div>
+            <div draggable="true" deck="2" onclick="place(2)" class="accessories">00</div>
+            <div draggable="true" deck="1" onclick="place(1)" class="accessories">0</div>
+        </div>
+        <br>
+        <div class="container">
+            <div id="enemy"></div>
+        </div>
+
+        <script>
+            let field = document.getElementById('field');
+            let anti_filed = document.getElementById('enemy');
+            let blocked = [];
+            let block_position = []; 
+            let count = 0;
+            let four_cage = 1, three_cage = 2, two_cage = 3, one_cage = 4;
+            // let flag = false;
+            let x = 0, y = 0;
+
+            for (let i = 0; i < 100; i++) {
+                let cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.setAttribute('x', x);
+                cell.setAttribute('y', y);
+                // cell.setAttribute('access', true);
+                cell.innerHTML= x + "," + y;
+                field.appendChild(cell);
+                y = (y > 8) ? y = 0 : y + 1;
+                x = (y == 0) ? x + 1 : x;
+            }
+
+            for (let i = 0; i < 100; i++) {
+                let cell = document.createElement('div');
+                cell.classList.add('anti_cell');
+                cell.setAttribute('anti_id', i);
+                // cell.setAttribute('class', 'block');
+                cell.innerHTML= i;
+                anti_filed.appendChild(cell);
+            }
+
+            function place(quantity) {
+                try {
+                    console.log(document.getElementsByClassName('block--select'));
+                    let last = document.getElementsByClassName('block--select');
+                    last[0].classList.remove('block--select');
+                } catch(e) {
+                    console.log("Вставки нет");
+                }
+                switch(true) {
+                    case (quantity == 4 && four_cage > 0):
+                        four_cage--;
+                        console.log(four_cage);
+                        break;
+                    case (quantity == 3 && three_cage > 0):
+                        three_cage--;
+                        console.log(three_cage);
+                        break;
+                    case (quantity == 2 && two_cage > 0):
+                        two_cage--;
+                        console.log(two_cage);
+                        break;
+                    case (quantity == 1 && one_cage > 0):
+                        one_cage--;
+                        console.log(one_cage);
+                        break;
+                    case (four_cage == 0 && three_cage == 0 && two_cage == 0 && one_cage == 0):
+                        alert("Ваше поле построено");
+                        return;
+                    default:
+                        console.log("Empty");
+                        return;
+                }
+                
+                count = quantity;
+                document.getElementById(0).classList.add('block--select');
+            }
+
+            window.addEventListener('keydown', function(event) {
+              var blocks = document.querySelectorAll('.cell'),
+                  block_selected = document.querySelectorAll('.block.block--select');
+                        
+              if (event.keyCode == "13") {
+                // console.log( block_selected.innerHTML )
+                // flag = true;
+                let position = document.getElementsByClassName('block--select');
+                // for (let count = arr.length; count != 0; count--) { 
+                //     position[0].classList.add('dot');
+                // }
+                if (count > 0 && blocked.includes(Number(position.getAttribute('id'))) == false) {
+                    position[0].classList.add('dot');
+                    count--;
+                    
+                } else {
+                    console.log("Error");
+                }
+              } else if (event.keyCode == "37") {
+                console.log("Left");
+                // block_selected.style.backgroundColor = "white";
+                for(var i = 0; i < blocks.length; i++){
+                  if( blocks[i].classList.contains('block--select')){
+                    blocks[i - 1].classList.add('block--select');
+                    blocks[i].classList.remove('block--select');
+                    
+                    break;
+                  };
+                };
+              } else if (event.keyCode == "39") {
+                console.log("Right");
+                for(var i = 0; i < blocks.length; i++){
+                  if( blocks[i].classList.contains('block--select')){
+                    blocks[i + 1].classList.add('block--select');
+                    blocks[i].classList.remove('block--select');
+                    
+                    break;
+                  };
+                };
+              } else if (event.keyCode == '38') {
+                console.log("Up");
+                for (let i = 0; i < blocks.length; i++) {
+                    if( blocks[i].classList.contains('block--select')){
+                        blocks[i - 10].classList.add('block--select');
+                        blocks[i].classList.remove('block--select');
+
+                        break;
+                    }
+                }
+              } else if (event.keyCode == '40') {
+                console.log("Down");
+                for (let i = 0; i < blocks.length; i++) {
+                    if( blocks[i].classList.contains('block--select')){
+                        blocks[i + 10].classList.add('block--select');
+                        blocks[i].classList.remove('block--select');
+
+                        break;
+                    }
+                }
+              }
+            });
+
+            // document.addEventListener("keydown", direction);
+
+            // function direction(event) {
+            // 	if(event.keyCode == 37) {
+            // 		// dir = "left";
+            //         //document.querySelectorAll("field").style.backgroundColor = "white";
+            //         console.log("Left");
+            //     } else if(event.keyCode == 38) {
+            // 		// dir = "up";
+            //         //document.querySelectorAll("field").style.backgroundColor = "white";
+            //         console.log("Up");
+            //     } else if(event.keyCode == 39) {
+            // 		// dir = "right";
+            //         //document.querySelectorAll("field").style.backgroundColor = "white";
+            //         console.log("Right");
+            //     } else if(event.keyCode == 40)
+            // 		// dir = "down";
+            //         //document.querySelectorAll("field").style.backgroundColor = "white";
+            //         console.log("Down");
+            // }
+
+            // const dragAndDrop = () => {
+            //     const cards = document.querySelectorAll('.accessories');
+
+            //     const cell = field;
+
+            //     const dragStart = function () {
+            //         setTimeout(() => {
+            //           this.classList.add('hide');
+            //         }, 0)
+            //       };
+            //       const dragEnd = function () {
+            //         this.classList.remove('hide');
+            //       };
+            //       const dragOver = function (evt) {
+            //         evt.preventDefault();
+            //       };
+            //       const dragEnter = function (evt) {
+            //         evt.preventDefault();
+            //         this.classList.add('hovered');
+            //       };
+            //       const dragLeave = function () {
+            //         this.classList.remove('hovered');
+            //       };
+            //       const dragDrop = function () {
+            //         this.classList.remove('hovered');
+            //         // place();
+            //         alert(Number(card.getAttribute('deck')));
+            //       };
+            //       card.addEventListener('dragstart', dragStart);
+            //       card.addEventListener('dragend', dragEnd);
+              
+            //       cell.addEventListener('dragover', dragOver);
+            //       cell.addEventListener('dragenter', dragEnter);
+            //       cell.addEventListener('dragleave', dragLeave);
+            //       cell.addEventListener('drop', dragDrop);
+            // }
+
+            // dragAndDrop();
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    </body>
+</html>

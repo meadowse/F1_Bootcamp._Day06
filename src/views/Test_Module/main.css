@@ -1,0 +1,28 @@
+#field, #enemy {
+    display: grid;
+    width: 500px;
+    height: 500px;
+    gap: 0px;
+    grid-template-columns: repeat(10, 50px);
+    border: 2px solid blue;
+}
+
+.cell, .anti_cell {
+    height: 50px;
+    text-align: center;
+    /* background-color: blue; */
+}
+
+.block--select {background-color: green;}
+
+.dot {
+    background-color: blue;
+}
+
+.hide {
+    display: none;
+}
+.hovered {
+    border: 5px solid aquamarine;
+    border-radius: 50px;
+}

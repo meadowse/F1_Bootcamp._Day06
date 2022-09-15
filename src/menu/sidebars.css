@@ -1,0 +1,126 @@
+body {
+    background-image: url('images/back.gif');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+  h1{
+      font-size: 30px;
+      color: #000;
+  }
+  
+   .btn:focus {
+       box-shadow: none;
+   }
+
+  .btn-circle {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    padding: 0;
+    border-radius: 50%;
+  }
+  
+  .btn-circle i {
+    position: relative;
+    top: -1px;
+  }
+  
+  .btn-circle-sm {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 0.9rem;
+  }
+  
+  .btn-circle-lg {
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    font-size: 1.1rem;
+  }
+  
+  .btn-circle-xl {
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    font-size: 1.3rem;
+  }
+
+  .menu {
+    width: 300px;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.75;
+}
+
+.row-box {
+    position: relative;
+    left: 90%;
+    top: 30vh;
+    transform: rotate(90deg);
+    width: 100px;
+    height: 100px;
+    opacity: 0.75;
+}
+.box {
+    background-color: black;
+    float: right;
+}
+.row-box img {
+    width: 50px;
+    height: 150px;
+    object-fit: cover;
+    padding: 1% 0;
+}
+
+
+.fight {
+  /* position: absolute;
+  top: 250px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#field, #enemy {
+  display: grid;
+  width: 500px;
+  height: 500px;
+  gap: 0px;
+  grid-template-columns: repeat(10, 50px);
+  border: 2px solid black;
+  background-color: black;
+  opacity: 0.9;
+}
+
+.cell, .anti_cell {
+  height: 50px;
+  text-align: center;
+  /* background-color: blue; */
+}
+
+.engaged {
+  background-color: #FF5722;
+}
+
+.dot {
+  background-color: #00ADB5;
+}
+
+.evil {
+  background-color: red;
+}
+
+.block--select {background-color: #eeee;}
+
+.hide {
+  display: none;
+}
+.hovered {
+  border: 5px solid aquamarine;
+  border-radius: 50px;
+}
